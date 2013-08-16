@@ -1,0 +1,10 @@
+## Read-only (long): $(NAME)
+
+record(longin, "$(P)$(R)$(NAME)_IN") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
+    field(SCAN, "I/O Intr")
+    field(EGU, "$(EGU)")
+    field(FLNK, "$(FLNK)")
+}

@@ -1,0 +1,22 @@
+## Read-write (binary): $(NAME)
+
+record(bi, "$(P)$(R)$(NAME)_IN") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynInt32")
+    field(INP,  "@asynMask($(PORT),$(ADDR),0x1,$(TIMEOUT))$(FUNC)")
+    field(SCAN, "I/O Intr")
+    field(FLNK, "$(FLNK)")
+    field(ZNAM,"$(ZERO)")
+    field(ONAM,"$(ONE)")
+}
+
+record(bo, "$(P)$(R)$(NAME)_OUT") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynInt32")
+    field(OUT,  "@asynMask($(PORT),$(ADDR),0x1,$(TIMEOUT))$(FUNC)")
+    field(FLNK, "$(FLNK)")
+    field(ZNAM,"$(ZERO)")
+    field(ONAM,"$(ONE)")
+    field(TPRO, "1")
+}
+

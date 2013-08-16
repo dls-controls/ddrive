@@ -1,0 +1,20 @@
+## Read-write (float): $(NAME)
+
+record(ai, "$(P)$(R)$(NAME)_IN") {
+    field(DESC, "$(DESC)")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
+    field(SCAN, "I/O Intr")
+    field(EGU, "$(EGU)")
+    field(FLNK, "$(FLNK)")
+    field(PREC, 6)
+}
+
+record(ao, "$(P)$(R)$(NAME)_OUT") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
+    field(EGU, "$(EGU)")
+    field(TPRO, 1)
+    field(PREC, 6)
+}

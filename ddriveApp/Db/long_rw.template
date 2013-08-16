@@ -1,0 +1,18 @@
+## Read-write (long): $(NAME)
+
+record(longin, "$(P)$(R)$(NAME)_IN") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
+    field(SCAN, "I/O Intr")
+    field(EGU, "$(EGU)")
+    field(FLNK, "$(FLNK)")
+}
+
+record(longout, "$(P)$(R)$(NAME)_OUT") {
+    field(DESC, "$(DESC)")
+    field(DTYP,"asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
+    field(EGU, "$(EGU)")
+    field(TPRO, "1")
+}

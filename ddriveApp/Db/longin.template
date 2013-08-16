@@ -1,0 +1,8 @@
+record(longin,"$(P)$(R)") {
+    field(DTYP,"asynUInt32Digital")
+    field(INP,"@asynMask($(PORT) $(OFFSET) 0xFFFF)")
+    field(SCAN,"$(SCAN)")
+    field(EGU, "$(EGU)")
+    field(FLNK, "$(FLNK)")
+}
+

@@ -1,0 +1,29 @@
+## Read/write calculation pair $(R)
+
+record(calc, "$(P)$(R)_IN") {
+    field(INPA, "$(P)RAW_$(R)_IN MS")
+    field(INPB, "$(INPB)")
+    field(INPC, "$(INPC)")
+    field(CALC, "$(RAW_TO_USER)")
+    field(EGU, "$(EGU)")
+    field(SCAN, "Passive")
+}
+
+record(calcout, "$(P)_CALC_$(R)_OUT") {
+    #field(DOPT, "Use OCAL")
+    #field(OOPT, "On Change")
+    # INPA written by the analog output record
+    field(INPB, "$(INPB)")
+    field(INPC, "$(INPC)")
+    field(CALC, "$(USER_TO_RAW)")
+    field(OUT, "$(P)RAW_$(R)_OUT PP")
+    field(EGU, "$(EGU)")
+    field(SCAN, "Passive")
+    field(TPRO, 1)
+}
+
+record(ao, "$(P)$(R)_OUT") {
+    field(OUT, "$(P)_CALC_$(R)_OUT.A PP")
+    field(SCAN, "Passive")
+    field(TPRO, 1)
+}

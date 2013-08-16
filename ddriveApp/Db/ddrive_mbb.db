@@ -1,0 +1,186 @@
+
+## Parameter SCT: Scan type
+record(mbbi, "$(P)$(R)SCT_IN") {
+    field(DESC, "Scan type")
+    field(DTYP, "asynUInt32Digital")
+    field(INP, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_SCT")
+    field(SCAN, "I/O Intr")
+    
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("ZRST", "Scan off")
+    field("ONST", "Sine scan")
+    field("TWST", "Triangle scan")
+
+}
+
+record(mbbo, "$(P)$(R)SCT_OUT") {
+    field(DESC, "Scan type")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_SCT")
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("ZRST", "Scan off")
+    field("ONST", "Sine scan")
+    field("TWST", "Triangle scan")
+
+}
+
+
+## Parameter MEAS_SYS: Measurement sys.
+record(mbbi, "$(P)$(R)MEAS_SYS_IN") {
+    field(DESC, "Measurement sys.")
+    field(DTYP, "asynUInt32Digital")
+    field(INP, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_MEAS_SYS")
+    field(SCAN, "I/O Intr")
+    
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("ZRST", "None")
+    field("ONST", "Strain gauge")
+    field("TWST", "Capacitive sensor")
+    field("THST", "Inductive sensor")
+
+}
+
+record(mbbo, "$(P)$(R)MEAS_SYS_OUT") {
+    field(DESC, "Measurement sys.")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_MEAS_SYS")
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("ZRST", "None")
+    field("ONST", "Strain gauge")
+    field("TWST", "Capacitive sensor")
+    field("THST", "Inductive sensor")
+
+}
+
+
+## Parameter GFKT: Function gen
+record(mbbi, "$(P)$(R)GFKT_IN") {
+    field(DESC, "Function gen")
+    field(DTYP, "asynUInt32Digital")
+    field(INP, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_GFKT")
+    field(SCAN, "I/O Intr")
+    
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("FRVL", "4")
+    field("FVVL", "5")
+    field("ZRST", "Off")
+    field("ONST", "Sine")
+    field("TWST", "Triangle")
+    field("THST", "Rectangle")
+    field("FRST", "Noise")
+    field("FVST", "Sweep")
+
+}
+
+record(mbbo, "$(P)$(R)GFKT_OUT") {
+    field(DESC, "Function gen")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_GFKT")
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("FRVL", "4")
+    field("FVVL", "5")
+    field("ZRST", "Off")
+    field("ONST", "Sine")
+    field("TWST", "Triangle")
+    field("THST", "Rectangle")
+    field("FRST", "Noise")
+    field("FVST", "Sweep")
+
+}
+
+
+## Parameter MONSRC: MON out source
+record(mbbi, "$(P)$(R)MONSRC_IN") {
+    field(DESC, "MON out source")
+    field(DTYP, "asynUInt32Digital")
+    field(INP, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_MONSRC")
+    field(SCAN, "I/O Intr")
+    
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("FRVL", "4")
+    field("FVVL", "5")
+    field("SXVL", "6")
+    field("ZRST", "Closed loop")
+    field("ONST", "Command value")
+    field("TWST", "Output voltage")
+    field("THST", "Cl loop deviation")
+    field("FRST", "Abs cl deviation")
+    field("FVST", "Actuator voltage")
+    field("SXST", "Open loop")
+
+}
+
+record(mbbo, "$(P)$(R)MONSRC_OUT") {
+    field(DESC, "MON out source")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_MONSRC")
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("FRVL", "4")
+    field("FVVL", "5")
+    field("SXVL", "6")
+    field("ZRST", "Closed loop")
+    field("ONST", "Command value")
+    field("TWST", "Output voltage")
+    field("THST", "Cl loop deviation")
+    field("FRST", "Abs cl deviation")
+    field("FVST", "Actuator voltage")
+    field("SXST", "Open loop")
+
+}
+
+
+## Parameter TRGEDGE: Trigger edge
+record(mbbi, "$(P)$(R)TRGEDGE_IN") {
+    field(DESC, "Trigger edge")
+    field(DTYP, "asynUInt32Digital")
+    field(INP, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_TRGEDGE")
+    field(SCAN, "I/O Intr")
+    
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("ZRST", "Off")
+    field("ONST", "Rising edge")
+    field("TWST", "Falling edge")
+    field("THST", "Both edges")
+
+}
+
+record(mbbo, "$(P)$(R)TRGEDGE_OUT") {
+    field(DESC, "Trigger edge")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT, "@asynMask($(PORT) $(ADDR) 0x0F $(TIMEOUT))DD_TRGEDGE")
+    field("ZRVL", "0")
+    field("ONVL", "1")
+    field("TWVL", "2")
+    field("THVL", "3")
+    field("ZRST", "Off")
+    field("ONST", "Rising edge")
+    field("TWST", "Falling edge")
+    field("THST", "Both edges")
+
+}
+

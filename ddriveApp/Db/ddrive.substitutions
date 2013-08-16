@@ -1,0 +1,68 @@
+file "long_rw.template" {
+    pattern { P,       R,       NAME,              DESC,       FUNC,       PORT,       ADDR,        TIMEOUT,   EGU,          FLNK }
+      { "$\(P)", "$\(R)",    "NOTCHF" ,     "Notch freq",  "DD_NOTCHF"  , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",            "" }
+      { "$\(P)", "$\(R)",    "NOTCHB" ,       "Notch bw",  "DD_NOTCHB"  , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",            "" }
+      { "$\(P)", "$\(R)",    "LPF"    ,   "LPF cut freq",  "DD_LPF"     , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",            "" }
+      { "$\(P)", "$\(R)",    "TRGLEN" ,    "Trigger len",  "DD_TRGLEN"  , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "*20uS",            "" }
+      { "$\(P)", "$\(R)",    "BRIGHT" , "TFT Brightness",  "DD_BRIGHT"  , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",            "" }
+      { "$\(P)", "$\(R)",   "ENC_RATE",   "Encoder rate",  "DD_ENC_RATE", "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",            "" }
+      { "$\(P)", "$\(R)",    "PLUGGED",        "Plugged",   "DD_PLUGGED", "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",            "" }
+      { "$\(P)", "$\(R)", "CLOSED_SYS",  "Closed system","DD_CLOSED_SYS", "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",            "" }
+}                                        
+
+file "bit_rw.template" {
+    pattern { P,       R,       NAME,                  DESC,       FUNC,       PORT,       ADDR,        TIMEOUT,              ONE,   ZERO,        FLNK }
+      { "$\(P)", "$\(R)",    "FENABLE",         "Soft start",  "DD_FENABLE" , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",    "MODON"  ,        "MOD enabled",  "DD_MODON"   , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",    "NOTCHON",      "Notch enabled",  "DD_NOTCHON" , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",    "LPON"   ,        "LPF enabled",  "DD_LPON"    , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",    "SS"     ,         "Start scan",  "DD_SS"      , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",    "CL"     ,        "Closed loop",  "DD_CL"      , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",        "On",  "Off",          "" }
+}
+
+file "bit_ro.template" {
+    pattern { P,       R,       NAME,              DESC,       FUNC,       PORT,       ADDR,        TIMEOUT,         ONE,   ZERO,   FLNK }
+      { "$\(P)", "$\(R)", "VOLTAGE_ON","Voltage enabled","DD_VOLTAGE_ON", "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "On", "Off",     "" }
+}
+
+file "bit_wo.template" {
+    pattern { P,       R,       NAME,              DESC,       FUNC,       PORT,       ADDR,        TIMEOUT,         ONE,   ZERO,   FLNK }
+      { "$\(P)", "$\(R)",    "SSTD", "Set default values",  "DD_SSTD" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "On",  "Off",          "" }
+      { "$\(P)", "$\(R)",  "FBREAK",    "Stop soft start", "DD_FBREAK","$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "On",  "Off",          "" }
+}
+
+file "long_ro.template" {
+    pattern { P,       R,       NAME,              DESC,       FUNC,       PORT,       ADDR,        TIMEOUT,               EGU,          FLNK }
+      { "$\(P)", "$\(R)",    "ROHM"   , "Operation time",  "DD_ROHM"    , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Minutes",            "" }
+      { "$\(P)", "$\(R)",    "RGVER"  ,        "Version",  "DD_RGVER"   , "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",           "",            "" }
+}
+
+file "float_rw.template" {               
+    pattern { P,       R,           NAME,                     DESC,        FUNC,      PORT,       ADDR,        TIMEOUT,   EGU,      FLNK }
+      { "$\(P)", "$\(R)", "KTEMP"       ,               "Amp temp", "DD_KTEMP" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "deg C",    "" }
+      { "$\(P)", "$\(R)", "SR"          ,              "Slew rate", "DD_SR"    ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "V/ms",     "" }
+      { "$\(P)", "$\(R)", "KP"          ,                  "PID P", "DD_KP"    ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",         "" }
+      { "$\(P)", "$\(R)", "KI"          ,                  "PID I", "DD_KI"    ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",         "" }
+      { "$\(P)", "$\(R)", "KD"          ,                  "PID D", "DD_KD"    ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "",         "" }
+      { "$\(P)", "$\(R)", "GASIN"       , "Gen ampl sine"         , "DD_GASIN" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GOSIN"       , "Ampl offset sine"      , "DD_GOSIN" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GFSIN"       , "Gen frequency sine"    , "DD_GFSIN" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",       "" }
+      { "$\(P)", "$\(R)", "GATRI"       , "Gen ampl triangle"     , "DD_GATRI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GOTRI"       , "Ampl offset triangle"  , "DD_GOTRI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GFTRI"       , "Gen frequency triangle", "DD_GFTRI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",       "" }
+      { "$\(P)", "$\(R)", "GSTRI"       , "Sym of triangle"       , "DD_GSTRI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GAREC"       , "Gen ampl rect"         , "DD_GAREC" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GOREC"       , "Ampl offset rect"      , "DD_GOREC" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GFREC"       , "Gen frequency rect"    , "DD_GFREC" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "Hz",       "" }
+      { "$\(P)", "$\(R)", "GSREC"       , "Sym of rect"           , "DD_GSREC" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GANOI"       , "Gen ampl noise"        , "DD_GANOI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GONOI"       , "Ampl offset noise"     , "DD_GONOI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GASWE"       , "Gen ampl sweep"        , "DD_GASWE" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GOSWE"       , "Ampl offset sweep"     , "DD_GOSWE" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "GTSWE"       , "Gen sweep time"        , "DD_GTSWE" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "%",        "" }
+      { "$\(P)", "$\(R)", "TRGSS"       , "Trig stroke start"     ,"DD_TRGSS" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "um|mrad",  "" }
+      { "$\(P)", "$\(R)", "TRGSE"       , "Trig stroke end"       , "DD_TRGSE" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "um|mrad",  "" }
+      { "$\(P)", "$\(R)", "TRGSI"       , "Trig gen interval"     , "DD_TRGSI" ,"$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "um|mrad",  "" }
+                 
+      { "$\(P)", "$\(R)", "MOVE_TIMEOUT", "EPICS Movement timeout", "DD_MOVE_TIMEOUT","$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "sec",         "" }
+}

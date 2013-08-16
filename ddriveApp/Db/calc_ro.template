@@ -1,0 +1,9 @@
+record(calc, "$(P)$(R)_IN") {
+    field(INPA, "$(P)RAW_$(R)_IN MS")
+    field(INPB, "$(INPB)")
+    field(INPC, "$(INPC)")
+    field(CALC, "$(RAW_TO_USER)")
+    field(EGU, "$(EGU)")
+    field(SCAN, "Passive")
+}
+
