@@ -227,11 +227,11 @@ asynStatus ddriveController::writeFloat64(asynUser *pasynUser, epicsFloat64 valu
   callParamCallbacks(pAxis->axisNo_);
   if (status) 
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s:%s: error, status=%d function=%s (%d), value=%d\n", 
+        "%s:%s: error, status=%d function=%s (%d), value=%f\n", 
         driverName, __func__, status, paramName, function, value);
   else    
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-        "%s:%s: function=%s (%d), value=%d\n", 
+        "%s:%s: function=%s (%d), value=%f\n", 
         driverName, __func__, paramName, function, value);
   return status;
 }
@@ -375,9 +375,9 @@ asynStatus ddriveController::writeReadMatch(char *ret_buf, const char* fmt, va_l
 
   if (status != asynSuccess) {
     asynPrint(pasynUser_, ASYN_TRACE_ERROR,
-        "%s: writeRead failed: %s (ret=%d) received: %s (len=%d)\n",
+        "%s: writeRead failed: %s (ret=%d) received: %s (len=%ld)\n",
         __func__, output, status, input, nread);
-    fprintf(stderr, "%s: writeRead failed: %s (ret=%d) received: %s (len=%d)\n",
+    fprintf(stderr, "%s: writeRead failed: %s (ret=%d) received: %s (len=%ld)\n",
             __func__, output, status, input, nread);
     if (nread > 0)
       strncpy(ret_buf, input, nread + 1);
@@ -503,12 +503,12 @@ asynStatus ddriveController::writeRead(char *buf_input, char *output, size_t* nr
 
   if (!strnchr(buf_input, DD_STRING_LEN, 0)) {
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER|ASYN_TRACE_ERROR,
-        "%s: writeRead failed: %s input buffer size (%d, nread=%d, reason=%d)",
+        "%s: writeRead failed: %s input buffer size (%d, nread=%ld, reason=%d)",
         __func__, output, DD_STRING_LEN, nread, eomReason);
     return asynError;
   } else {
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER,
-      "%s:%s: Read (%db): %s\n",
+      "%s:%s: Read (%ldb): %s\n",
       driverName, __func__, *nread, buf_input);
   }
 
