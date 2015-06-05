@@ -62,9 +62,10 @@ asynStatus ddriveAxis::queryParameter(const DDParam *param, T& value) {
   if (param->service_mode) {
     asynStatus ret = asynError;
   
-#if DEBUG
-    printf("(Axis %d) Querying service mode param %d\n", axisNo_, param->service_param);
-#endif
+  asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+            "(Axis %d) Querying service mode param %d\n",
+            axisNo_, param->service_param);
+
     pc_->enterServiceMode();
     char read_buf[DD_STRING_LEN];
     // Maybe they'll fix the out-of-order response:
@@ -72,7 +73,9 @@ asynStatus ddriveAxis::queryParameter(const DDParam *param, T& value) {
     // rdmb109,0,1000
     if (pc_->writeReadMatch(read_buf, "rdmb,%d,%d", axisNo_, param->service_param) == asynError) {
 #if DEBUG
-      printf("(Axis %d) Querying service mode param %d, %s\n", axisNo_, param->service_param, read_buf);
+      asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+                "(Axis %d) Querying service mode param %d, %s\n", 
+                axisNo_, param->service_param, read_buf);
 #endif
       // Failed, assume this format:
       // rdmb109,0,1000
@@ -84,9 +87,9 @@ asynStatus ddriveAxis::queryParameter(const DDParam *param, T& value) {
             //value = static_cast<T>(atoi(&read_buf[i+1]));
             value = atoi(&read_buf[i+1]);
             ret = asynSuccess;
-#if DEBUG
-            printf("Read out of order value for service param #%d: %d\n", param->service_param, value);
-#endif
+            asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+                      "Read out of order value for service param #%d: %d\n",
+                      param->service_param, (int)value);
             break;
           }
         }
@@ -137,9 +140,9 @@ asynStatus ddriveAxis::writeParameter(const DDParam *param, int value) {
     pc_->exitServiceMode(); // queryparameter() should already do this
     return ret;
   } else {
-#if DEBUG
-    printf("-> write param: %s,%d,%d\n", param->command, axisNo_, value);
-#endif
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+              "-> write param: %s,%d,%d\n", 
+              param->command, axisNo_, value);
     return pc_->write("%s,%d,%d", param->command, axisNo_, value);
   }
 }
@@ -159,9 +162,9 @@ asynStatus ddriveAxis::writeParameter(const DDParam *param, double value) {
     return asynError;
 
   // %g formatting good enough?
-#if DEBUG
-  printf("write param: %s,%d,%g\n", param->command, axisNo_, value);
-#endif
+  asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+            "write param: %s,%d,%g\n", 
+            param->command, axisNo_, value);
   return pc_->write("%s,%d,%g", param->command, axisNo_, value);
 }
 
@@ -218,15 +221,24 @@ asynStatus ddriveAxis::queryStatus() {
     bool notch_filter = (status & DD_STATUS_NOTCH_FILTER) == DD_STATUS_NOTCH_FILTER;
     bool lp_filter = (status & DD_STATUS_LP_FILTER) == DD_STATUS_LP_FILTER;
 
-    printf("-- Axis %d: status changed --\n", axisNo_);
-    printf("\tPlugged: %d\n", plugged);
-    printf("\tMeasurement system: %s (%d)\n", DDRIVE_MEAS_STRINGS[measure], measure);
-    printf("\tClosed loop system: %d\n", closed_loop_sys);
-    printf("\tIn closed loop: %d\n", closed_loop);
-    printf("\tVoltage enabled: %d\n", voltage_enabled);
-    printf("\tGenerator: %s (%d)\n", DDRIVE_GEN_STRINGS[generator], generator);
-    printf("\tNotch filter enabled: %d\n", notch_filter);
-    printf("\tLow-pass filter enabled: %d\n", lp_filter);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "-- Axis %d: status changed --\n", axisNo_);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tPlugged: %d\n", plugged);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tMeasurement system: %s (%d)\n", DDRIVE_MEAS_STRINGS[measure], measure);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tClosed loop system: %d\n", closed_loop_sys);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tIn closed loop: %d\n", closed_loop);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tVoltage enabled: %d\n", voltage_enabled);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tGenerator: %s (%d)\n", DDRIVE_GEN_STRINGS[generator], generator);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tNotch filter enabled: %d\n", notch_filter);
+    asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+              "\tLow-pass filter enabled: %d\n", lp_filter);
     
     setIntegerParam(pc_->param_notchon_, notch_filter);
     setIntegerParam(pc_->param_lpon_, lp_filter);
@@ -253,13 +265,15 @@ bool ddriveAxis::checkMoving() {
       pc_->lock();
     
       double enc_diff = fabs(move_target_ - encoder_pos_);
-#if DEBUG
-      printf("Moving. Target: %f: encoder: %f (difference %f)\n", move_target_, encoder_pos_, enc_diff);
-#endif
+      asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+                "Moving. Target: %f: encoder: %f (difference %f)\n",
+                move_target_, encoder_pos_, enc_diff);
 
       if (epicsTime::getCurrent() > t_move_timeout_ || enc_diff <= DDRIVE_MOVE_RESOLUTION) {
         double t = epicsTime::getCurrent() - t_move_start_;
-        printf("Moved in %.3f sec. Encoder difference: %g\n", t, enc_diff);
+        asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW, 
+                  "Moved in %.3f sec. Encoder difference: %g\n",
+                  t, enc_diff);
         motionFinished();
       }
       pc_->unlock();
@@ -299,12 +313,9 @@ asynStatus ddriveAxis::home(double min_velocity, double max_velocity, double acc
 asynStatus ddriveAxis::move(double position, int relative, double min_velocity, double max_velocity, double acceleration)
 {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
-    "%s:%s: axis %d: move to %g (relative=%d)\n",
-    driverName, __func__, axis_num_, 
-    position, relative);
-  printf("%s:%s: axis %d: move to %g (relative=%d)\n",
-    driverName, __func__, axis_num_, 
-    position, relative);
+            "%s:%s: axis %d: move to %g (relative=%d)\n",
+            driverName, __func__, axis_num_, 
+            position, relative);
 
   if (mode_ == DD_MODE_POSITION) {
     position *= DDRIVE_COUNTS_TO_UM;
