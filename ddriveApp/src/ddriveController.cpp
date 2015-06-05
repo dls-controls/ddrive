@@ -143,7 +143,8 @@ ddriveController::ddriveController(const char *portName, const char *ddrivePortN
 void ddriveController::enterServiceMode() {
   if (!service_mode_) {
 #if DEBUG
-    printf("Entering service mode\n");
+    asynPrint(pasynUser_, ASYN_TRACE_FLOW, 
+              "Entering service mode\n");
 #endif
     write("*SetA");
     service_mode_ = true;
@@ -153,7 +154,8 @@ void ddriveController::enterServiceMode() {
 void ddriveController::exitServiceMode() {
   if (service_mode_) {
 #if DEBUG
-    printf("Exiting service mode\n");
+    asynPrint(pasynUser_, ASYN_TRACE_FLOW, 
+              "Exiting service mode\n");
 #endif
     write("*SetA,0");
     service_mode_ = false;
@@ -172,7 +174,6 @@ void ddriveController::createDDParam(const char *cmd, const char *param_str, asy
   ddparams_[i].idx = *param_idx;
   ddparams_[i].service_mode = service_mode;
   ddparams_[i].service_param = service_param;
-  printf("Parameter %s is index %d\n", cmd, *param_idx);
   i++;
 }
 
@@ -217,7 +218,8 @@ asynStatus ddriveController::writeFloat64(asynUser *pasynUser, epicsFloat64 valu
     }
   } else if (function == param_move_timeout_) {
     position_move_timeout_ = value;
-    printf("Move timeout set to: %g\n", value);
+    asynPrint(pasynUser, ASYN_TRACE_FLOW, 
+              "Move timeout set to: %g\n", value);
   } else {
     /* Call base class method */
     status = asynMotorController::writeFloat64(pasynUser, value);
@@ -259,8 +261,12 @@ asynStatus ddriveController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32
    * status at the end, but that's OK */
   status = setUIntDigitalParam(pAxis->axisNo_, function, value, mask);
 
-  printf("%s:%s: mask=%x function=%s (%d), value=%d\n", 
-        driverName, __func__, mask, paramName, function, value);
+#if DEBUG
+  asynPrint(pasynUser, ASYN_TRACE_FLOW, 
+            "%s:%s: mask=%x function=%s (%d), value=%d\n", 
+            driverName, __func__, mask, paramName, function, value);
+#endif
+
   const DDParam *ddp = DDParamFromIndex(function);
 
   if (ddp && ddp->type == asynParamUInt32Digital) {
@@ -327,12 +333,12 @@ asynStatus ddriveController::writeInt32(asynUser *pasynUser, epicsInt32 value)
   callParamCallbacks(pAxis->axisNo_);
   if (status) 
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s:%s: error, status=%d function=%s (%d), value=%d\n", 
-        driverName, __func__, status, paramName, function, value);
+              "%s:%s: error, status=%d function=%s (%d), value=%d\n", 
+              driverName, __func__, status, paramName, function, value);
   else    
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-        "%s:%s: function=%s (%d), value=%d\n", 
-        driverName, __func__, paramName, function, value);
+              "%s:%s: function=%s (%d), value=%d\n", 
+              driverName, __func__, paramName, function, value);
   return status;
 }
 
@@ -347,8 +353,8 @@ asynStatus ddriveController::write(const char *fmt, va_list argptr) {
 #endif
 
   asynPrint(pasynUser_, ASYN_TRACE_FLOW,
-    "%s:%s: %s\n",
-    driverName, __func__, buf);
+            "%s:%s: %s\n",
+            driverName, __func__, buf);
 
   return pasynOctetSyncIO->write(pasynUser_,
                                  buf, strlen(buf),
