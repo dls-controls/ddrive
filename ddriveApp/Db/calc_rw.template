@@ -26,4 +26,6 @@ record(ao, "$(P)$(R)_OUT") {
     field(OUT, "$(P)_CALC_$(R)_OUT.A PP")
     field(SCAN, "Passive")
     field(TPRO, 1)
+
+    info(autosaveFields_pass0, "VAL")
 }

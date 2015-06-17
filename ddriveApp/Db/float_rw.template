@@ -17,4 +17,6 @@ record(ao, "$(P)$(R)$(NAME)_OUT") {
     field(EGU, "$(EGU)")
     field(TPRO, 1)
     field(PREC, 6)
+
+    info(autosaveFields_pass0, "VAL")
 }

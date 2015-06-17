@@ -8,4 +8,6 @@ record(bo, "$(P)$(R)$(NAME)_OUT") {
     field(ZNAM,"$(ZERO)")
     field(ONAM,"$(ONE)")
     field(TPRO, "1")
+
+    info(autosaveFields_pass0, "VAL")
 }

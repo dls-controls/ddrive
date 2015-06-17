@@ -15,4 +15,6 @@ record(longout, "$(P)$(R)$(NAME)_OUT") {
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))$(FUNC)")
     field(EGU, "$(EGU)")
     field(TPRO, "1")
+
+    info(autosaveFields_pass0, "VAL")
 }
