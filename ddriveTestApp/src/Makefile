@@ -17,10 +17,10 @@ ddriveTest_DBD += base.dbd
 
 # Include dbd files from all support applications:
 ddriveTest_DBD += asyn.dbd ddrive.dbd motorSupport.dbd drvAsynIPPort.dbd drvAsynSerialPort.dbd
-ddriveTest_DBD += asSupport.dbd
+ddriveTest_DBD += asSupport.dbd calcSupport.dbd
 
 # Add all the support libraries needed by this IOC
-ddriveTest_LIBS += ddrive asyn motor autosave
+ddriveTest_LIBS += ddrive asyn motor autosave calc
 
 # ddriveTest_registerRecordDeviceDriver.cpp derives from ddriveTest.dbd
 ddriveTest_SRCS += ddriveTest_registerRecordDeviceDriver.cpp

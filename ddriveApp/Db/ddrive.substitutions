@@ -66,3 +66,8 @@ file "float_rw.template" {
                  
       { "$\(P)", "$\(R)", "MOVE_TIMEOUT", "EPICS Movement timeout", "DD_MOVE_TIMEOUT","$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)",    "sec",         "" }
 }
+
+file "ddrive_mbb.db" {               
+    pattern { P,       R,       PORT,       ADDR,        TIMEOUT }
+      { "$\(P)", "$\(R)", "$\(PORT)", "$\(ADDR)", "$\(TIMEOUT\)" }
+}

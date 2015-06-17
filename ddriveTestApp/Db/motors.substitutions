@@ -1,0 +1,24 @@
+file "motor.db" {
+  pattern
+   {            P ,        DTYP ,       PORT , ADDR ,         DESC , EGU , DIR , VMAX , VELO , VBAS , ACCL , BDST , BVEL , BACC ,  MRES , PREC , DHLM ,  DLLM , RTRY ,   RDBD ,  DLY , OFF , INIT }
+  { "\$(P){Ax:1}" , "asynMotor" , "\$(PORT)" ,    0 , "ddrive ax1" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+  { "\$(P){Ax:2}" , "asynMotor" , "\$(PORT)" ,    1 , "ddrive ax2" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+  { "\$(P){Ax:3}" , "asynMotor" , "\$(PORT)" ,    2 , "ddrive ax3" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+}
+
+file "$(TOP)/db/ddrive.db"
+{
+  pattern
+  {      P,         R,    PORT,    ADDR, TIMEOUT }
+  { "\$(P)", "{Ax:1}", "\$(PORT)",    0,     0.3 }
+  { "\$(P)", "{Ax:2}", "\$(PORT)",    1,     0.3 }
+  { "\$(P)", "{Ax:3}", "\$(PORT)",    2,     0.3 }
+}
+
+
+file "$(EPICS_BASE)/db/asynRecord.db"
+{
+  pattern
+  {          P ,       R ,       PORT , ADDR , OMAX , IMAX }
+  {    "\$(P)" , asyn_m1 , "\$(PORT)" ,    0 ,  256 ,  256 }
+}
