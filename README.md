@@ -9,8 +9,8 @@ Requirements
 Though it may work on other versions, the driver was tested on these:
 
 1. EPICS base 3.14.12.3 http://www.aps.anl.gov/epics/
-2. asyn 4-18 http://www.aps.anl.gov/epics/modules/soft/asyn/
-3. motor record 6-7 http://www.aps.anl.gov/bcda/synApps/motor/
+2. asyn 4-26 http://www.aps.anl.gov/epics/modules/soft/asyn/
+3. motor record 6-9 http://www.aps.anl.gov/bcda/synApps/motor/
 
 Optional
 --------
@@ -29,8 +29,8 @@ Installation
     1. Point the directories listed in there to the appropriate places
     2. If using the Debian packages, everything can be pointed to /usr/lib/epics
 3. Edit iocBoot/iocddrive/st.cmd
-    1. Change the shebang on the top of the script if your architecture is different than linux-x86:
-        #!../../bin/linux-x86/ddrive
+    1. Change the shebang on the top of the script if your architecture is different than linux-x86_64:
+        #!../../bin/linux-x86_64/ddrive
         (check if the environment variable EPICS_HOST_ARCH is set, or perhaps `uname -a`, or ask someone if
          you don't know)
     2. The following line sets the prefix to all of your ddrive PVs (with $(P)$(R)):
@@ -54,24 +54,23 @@ Installation
         ```
         The moving and idle poll periods are both in milliseconds. The former rate is used when an axis is in motion, the latter otherwise.
     6. If using autosave, uncomment create_monitor_set lines. Add lines in auto_positions.req and auto_settings.req for each motor.
-4.  Edit iocBoot/iocddrive/ddrive.sub
-    Modify the lines so that there is one motor.db line per axis. Each will be named $(P)$(M).
-    Additional control outside of that available in the EPICS motor record is given in ddrive_mbb.db, so similarly add one line for each of those if necessary.
-5. An asyn
-6. Go to the top directory and `make`
-7. If all goes well:
+4.  Edit ddriveTestApp/Db/motors.sub
+    If multiple d-drives are used, duplicate each section and change the $(PORT) macros, descriptions, and so on.
+    An asyn record per controller is created as well, allowing for direct communication.
+5. Go to the top directory and `make`
+6. If all goes well:
     ```
     cd iocBoot/iocddrive
-    chmod +x st.cmd`
+    chmod +x st.cmd
     ./st.cmd
     ```
 
-8. Run EDM:
+7. Run EDM:
     ```
     export EDMDATAFILES=$TOP/op/edl:$EDMDATAFILES
     (general motor settings configuration)
-    edm -x -m "P=MLL:ddrive:,M=m1" motorx_all &
+    edm -x -m "P=MLL:ddrive{Ax:1},M=Mtr" motorx_all &
 
     (d-drive specific settings)
-    edm -x -m "P=MLL:,R=DDRIVE:AX0:" ddrive_all &
+    edm -x -m "P=MLL:ddrive,R={Ax:1}" ddrive_all &
     ```
