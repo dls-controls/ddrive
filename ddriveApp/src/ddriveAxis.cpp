@@ -19,6 +19,8 @@ ddriveAxis::ddriveAxis(ddriveController *controller, int axis_num)
     moving_ = false;
     initial_query_ = true;
     query_status_ = true;
+
+    motionFinished();
 }
 
 asynStatus ddriveAxis::poll(bool *moving) {
@@ -79,20 +81,13 @@ asynStatus ddriveAxis::queryParameter(const DDParam *param, T& value) {
 #endif
       // Failed, assume this format:
       // rdmb109,0,1000
-      if (read_buf[0] != 0) {
-        // read a response
-        for (int i=strlen(read_buf); i > 0; i--) {
-          if (read_buf[i] == ',') {
-            // only support int values, for now (?)
-            //value = static_cast<T>(atoi(&read_buf[i+1]));
-            value = atoi(&read_buf[i+1]);
-            ret = asynSuccess;
-            asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
-                      "Read out of order value for service param #%d: %d\n",
-                      param->service_param, (int)value);
-            break;
-          }
-        }
+      int read_axis, read_parm, read_val;
+      if (sscanf((const char*)read_buf, "rdmb%d,%d,%d", &read_axis, &read_parm, &read_val) == 3) {
+          value = static_cast<T>(read_val);
+          ret = asynSuccess;
+          asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
+                    "Read out of order value for service param #%d: %d\n",
+                    param->service_param, (int)value);
       } else {
         fprintf(stderr, "Failed to readback service mode parameter (%d).\n", param->service_param);
       }
@@ -277,8 +272,6 @@ bool ddriveAxis::checkMoving() {
         motionFinished();
       }
       pc_->unlock();
-    } else if (initial_query_) {
-      motionFinished();
     }
 
   }

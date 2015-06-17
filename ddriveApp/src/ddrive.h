@@ -39,6 +39,8 @@
 #define DDRIVE_COUNTS_TO_MM         1.0e-6
 #define DDRIVE_COUNTS_TO_UM         1.0e-3
 #define DDRIVE_COUNTS_TO_NM         1.0e-0
+
+// TODO: why can't we use the retry deadband?
 #define DDRIVE_MOVE_RESOLUTION      0.005 // um
 
 #define DD_STATUS_PLUGGED           (1 << 0)
