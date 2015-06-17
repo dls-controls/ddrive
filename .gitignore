@@ -1,0 +1,8 @@
+*~
+O.*
+bin/
+lib/
+db/
+dbd/
+envPaths
+*.sw[op]
