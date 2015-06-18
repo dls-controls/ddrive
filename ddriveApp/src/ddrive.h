@@ -286,7 +286,6 @@ private:
   bool moving_;
   double move_target_;
   bool errored_;
-  int axis_num_;             // according to asyn (0-based)
   int status_;
   int param_num_;            // last parameter number (according to ddrive_params) to be queried
   bool initial_query_;       // the first query

@@ -7,7 +7,7 @@
 
 /** Creates a new ddriveAxis object.
   * \param[in] controller         The ddrive controller
-  * \param[in] axis_num           The axis number (1-based)
+  * \param[in] axis_num           The axis number
   */
 ddriveAxis::ddriveAxis(ddriveController *controller, int axis_num)
   :  asynMotorAxis((asynMotorController*)controller, axis_num)
@@ -45,7 +45,7 @@ asynStatus ddriveAxis::poll(bool *moving) {
 }
 
 asynStatus ddriveAxis::queryPosition() {
-  asynStatus ret = pc_->writeRead(encoder_pos_, "mess,%d", axis_num_);
+  asynStatus ret = pc_->writeRead(encoder_pos_, "mess,%d", axisNo_);
   if (ret == asynSuccess) {
     setDoubleParam(pc_->motorEncoderPosition_, encoder_pos_ / DDRIVE_COUNTS_TO_UM);
     setDoubleParam(pc_->motorPosition_, encoder_pos_ / DDRIVE_COUNTS_TO_UM);
@@ -180,13 +180,13 @@ asynStatus ddriveAxis::queryParameters() {
             setUIntDigitalParam(param->idx, value);
             // NOTE: these will not work pre asyn-4-18 (? at least with the debian packages it does not work TODO check its version)
           }
-        //printf("Queried parameter Axis: %d (#%d) %s %s = %d\n", axis_num_, param_num_, param->asyn_param, param->command, value);
+        //printf("Queried parameter Axis: %d (#%d) %s %s = %d\n", axisNo_, param_num_, param->asyn_param, param->command, value);
         }
       } else if (param->type == asynParamFloat64) {
         double value;
         if (queryParameter(param, value) == asynSuccess)
           setDoubleParam(param->idx, value);
-        //printf("Queried parameter Axis: %d (#%d) %s %s = %f\n", axis_num_, param_num_, param->asyn_param, param->command, value);
+        //printf("Queried parameter Axis: %d (#%d) %s %s = %f\n", axisNo_, param_num_, param->asyn_param, param->command, value);
       }
     }
   } while (param_num_ != last_param);
@@ -202,7 +202,7 @@ asynStatus ddriveAxis::queryParameters() {
 
 asynStatus ddriveAxis::queryStatus() {
   int status=0;
-  asynStatus ret = pc_->writeRead(status, "stat,%d", axis_num_);
+  asynStatus ret = pc_->writeRead(status, "stat,%d", axisNo_);
 
   if (ret == asynSuccess && status != status_) {
     // only evaluate when status has changed
@@ -290,7 +290,7 @@ asynStatus ddriveAxis::stop(double acceleration)
     motionFinished();
     return asynSuccess;
   } else {
-    return pc_->write("ss,%d,0", axis_num_);
+    return pc_->write("ss,%d,0", axisNo_);
   }
 }
 
@@ -307,7 +307,7 @@ asynStatus ddriveAxis::move(double position, int relative, double min_velocity, 
 {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
             "%s:%s: axis %d: move to %g (relative=%d)\n",
-            driverName, __func__, axis_num_, 
+            driverName, __func__, axisNo_, 
             position, relative);
 
   if (mode_ == DD_MODE_POSITION) {
@@ -324,10 +324,10 @@ asynStatus ddriveAxis::move(double position, int relative, double min_velocity, 
 
     // No actual response from the controller even with invalid input...
     // What to do?
-    return pc_->write("set,%d,%g", axis_num_, position);
+    return pc_->write("set,%d,%g", axisNo_, position);
   } else {
     // TODO
-    return pc_->write("ss,%d,1", axis_num_);
+    return pc_->write("ss,%d,1", axisNo_);
   }
 }
 
