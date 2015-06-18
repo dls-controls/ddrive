@@ -6,15 +6,16 @@
 dbLoadDatabase("../../dbd/ddriveTest.dbd",0,0)
 ddriveTest_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet("P", "$(P=MLL:)")
-epicsEnvSet("R", "$(R=ddrive)")
+epicsEnvSet("SYS",    "$(SYS=XF:03IDC-ES)")
+epicsEnvSet("CTLSYS", "$(CTLSYS=XF:03IDC-CT)")
+epicsEnvSet("DEV",    "$(DEV=Ddrive)")
+
 # Note: if using procServ, setting this manually is unnecessary:
 epicsEnvSet("IOCNAME", "ddrive")
-epicsEnvSet("IOC_PREFIX", "$(P)$(R){IOC:$(IOCNAME)}")
+epicsEnvSet("IOC_PREFIX", "$(CTLSYS){IOC:$(IOCNAME)}")
 
 epicsEnvSet("DDRIVE_NET_IP", "$(DDRIVE_NET_IP=192.168.33.2)")
 epicsEnvSet("DDRIVE_NET_PORT", "$(DDRIVE_NET_PORT=4001)")
-epicsEnvSet("AS_PREFIX", "$(P)")
 epicsEnvSet("ASYN_PORT", "$(ASYN_PORT=DDRIVE)")
 
 drvAsynIPPortConfigure("$(ASYN_PORT)","$(DDRIVE_NET_IP):$(DDRIVE_NET_PORT)",0,0,0)
@@ -41,7 +42,7 @@ ddriveCreateController("DDRIVE0", "$(ASYN_PORT)", 3, 50, 100)
 asynSetTraceIOMask("DDRIVE0", -1, 255)
 #asynSetTraceIOMask("$(ASYN_PORT)", -1, 255)
 
-dbLoadRecords("$(TOP)/db/motors.db", "P=$(P)$(R),PORT=DDRIVE0")
+dbLoadRecords("$(TOP)/db/motors.db", "SYS=$(SYS),CTLSYS=$(CTLSYS),DEV=$(DEV),PORT=DDRIVE0")
 
 set_savefile_path("${TOP}/as/save","")
 set_requestfile_path("$(EPICS_BASE)/as/req")
@@ -68,4 +69,4 @@ create_monitor_set("info_settings.req", 30, "")
 
 cd ${TOP}
 dbl > ./records.dbl
-system "cp ./records.dbl /cf-update/$HOSTNAME.$IOCNAME.dbl"
+# system "cp ./records.dbl /cf-update/$HOSTNAME.$IOCNAME.dbl"
