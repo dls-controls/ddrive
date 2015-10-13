@@ -8,39 +8,44 @@ ddriveTest_registerRecordDeviceDriver(pdbbase)
 
 epicsEnvSet("SYS",    "$(SYS=XF:03IDC-ES)")
 epicsEnvSet("CTLSYS", "$(CTLSYS=XF:03IDC-CT)")
-epicsEnvSet("DEV",    "$(DEV=Ddrive)")
+epicsEnvSet("DEV",    "Ddrive1")
 
 # Note: if using procServ, setting this manually is unnecessary:
 epicsEnvSet("IOCNAME", "ddrive")
 epicsEnvSet("IOC_PREFIX", "$(CTLSYS){IOC:$(IOCNAME)}")
 
-epicsEnvSet("DDRIVE_NET_IP", "$(DDRIVE_NET_IP=192.168.33.2)")
-epicsEnvSet("DDRIVE_NET_PORT", "$(DDRIVE_NET_PORT=4001)")
-epicsEnvSet("ASYN_PORT", "$(ASYN_PORT=DDRIVE)")
+epicsEnvSet("EPICS_CA_AUTO_ADDR_LIST", "NO")
+epicsEnvSet("EPICS_CA_ADDR_LIST", "10.3.0.255")
 
-drvAsynIPPortConfigure("$(ASYN_PORT)","$(DDRIVE_NET_IP):$(DDRIVE_NET_PORT)",0,0,0)
+epicsEnvSet("DDRIVE_NET_IP", "10.3.2.59")
+epicsEnvSet("DDRIVE_NET_PORT", "4012")
+epicsEnvSet("ASYN_PORT", "DDRIVE")
 
-#drvAsynSerialPortConfigure("$(PORT)", "/dev/ttyS0")
-#asynSetOption("$(ASYN_PORT)", -1,"baud",9600)
-#asynSetOption("$(ASYN_PORT)", -1,"bits",8)
-#asynSetOption("$(ASYN_PORT)", -1,"parity","none")
-#asynSetOption("$(ASYN_PORT)", -1,"stop",1)
-#asynSetOption("$(ASYN_PORT)", -1, "clocal", "N")
-#asynSetOption("$(ASYN_PORT)", -1, "crtscts", "N")
-asynOctetSetInputEos("$(ASYN_PORT)", -1, "\n")
-asynOctetSetOutputEos("$(ASYN_PORT)", -1, "\n")
-# asynSetTraceIOMask("$(ASYN_PORT)",-1,0)
-# asynSetTraceMask("$(ASYN_PORT)",-1,0)
-# asynSetTraceIOMask("$(ASYN_PORT)",-1,0x2)
-# asynSetTraceMask("$(ASYN_PORT)",-1,0x9)
+drvAsynIPPortConfigure("E0","$(DDRIVE_NET_IP):$(DDRIVE_NET_PORT)",0,0,0)
+
+# drvAsynSerialPortConfigure("$(PORT)", "/dev/ttyS0")
+# asynSetOption("E0", -1,"baud",9600)
+# asynSetOption("E0", -1,"bits",8)
+# asynSetOption("E0", -1,"parity","none")
+# asynSetOption("E0", -1,"stop",1)
+# asynSetOption("E0", -1, "clocal", "N")
+# asynSetOption("E0", -1, "crtscts", "N")
+
+asynOctetSetInputEos("E0", -1, "\n")
+asynOctetSetOutputEos("E0", -1, "\n")
+
+# asynSetTraceIOMask("E0",-1,0)
+# asynSetTraceMask("E0",-1,0)
+# asynSetTraceIOMask("E0",-1,0x2)
+# asynSetTraceMask("E0",-1,0x9)
 
 #ddriveCreateController(portName, ddrivePortName, numAxes, movingPollPeriod, idlePollPeriod)
-ddriveCreateController("DDRIVE0", "$(ASYN_PORT)", 3, 50, 100)
+ddriveCreateController("DDRIVE0", "E0", 3, 50, 100)
 
 # asynSetTraceMask("DDRIVE0", 0, 3)
-#asynSetTraceMask("$(ASYN_PORT)", -1, 3)
+#asynSetTraceMask("E0", -1, 3)
 asynSetTraceIOMask("DDRIVE0", -1, 255)
-#asynSetTraceIOMask("$(ASYN_PORT)", -1, 255)
+#asynSetTraceIOMask("E0", -1, 255)
 
 dbLoadRecords("$(TOP)/db/motors.db", "SYS=$(SYS),CTLSYS=$(CTLSYS),DEV=$(DEV),PORT=DDRIVE0")
 

@@ -1,0 +1,5 @@
+NAME=pt_ddrive
+PORT=4035
+HOST=xf03idc-ioc1
+USER=softioc
+CHDIR="$CHDIR/iocBoot/iocddrive"
