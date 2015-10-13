@@ -1,9 +1,9 @@
 file "$(HXN)/db/asyn_motor_alias.db" {
   pattern
   {                      P , ALIAS,        DTYP ,       PORT , ADDR ,     DESC , EGU , DIR , VMAX , VELO , VBAS , ACCL , BDST , BVEL , BACC ,  MRES , PREC , DHLM ,  DLLM , RTRY ,   RDBD ,  DLY , OFF , INIT }
-  { "\$(SYS){$(DEV)-Ax:1}" , p_ssx, "asynMotor" , "\$(PORT)" ,    0 , "Axis 1" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
-  { "\$(SYS){$(DEV)-Ax:2}" , p_ssy, "asynMotor" , "\$(PORT)" ,    1 , "Axis 2" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
-  { "\$(SYS){$(DEV)-Ax:3}" , p_ssz, "asynMotor" , "\$(PORT)" ,    2 , "Axis 3" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+  { "\$(SYS){$(DEV)-Ax:1}" , p_ssx, "asynMotor" , "\$(PORT)" ,    0 , "p_ssx" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+  { "\$(SYS){$(DEV)-Ax:2}" , p_ssy, "asynMotor" , "\$(PORT)" ,    1 , "p_ssy" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
+  { "\$(SYS){$(DEV)-Ax:3}" , p_ssz, "asynMotor" , "\$(PORT)" ,    2 , "p_ssz" ,  um , Pos , 10.0 ,  0.5 , 0.50 ,  0.2 ,    0 ,    1 ,   .2 , 0.001 ,    8 , 3500 , -6001 ,    0 , 0.0005 , 0.05 ,   0 ,   "" }
 }
 
 file "$(TOP)/db/ddrive.db"

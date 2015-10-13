@@ -8,7 +8,7 @@ ddriveTest_registerRecordDeviceDriver(pdbbase)
 
 epicsEnvSet("SYS",    "$(SYS=XF:03IDC-ES)")
 epicsEnvSet("CTLSYS", "$(CTLSYS=XF:03IDC-CT)")
-epicsEnvSet("DEV",    "Ddrive1")
+epicsEnvSet("DEV",    "Ddrive:1")
 
 # Note: if using procServ, setting this manually is unnecessary:
 epicsEnvSet("IOCNAME", "ddrive")
